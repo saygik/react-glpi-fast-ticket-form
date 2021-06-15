@@ -1,0 +1,40 @@
+{
+  "name": "create-react-app",
+  "version": "4.0.0",
+  "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "@material-ui/core": "latest",
+    "@material-ui/icons": "^4.11.2",
+    "axios": "^0.21.1",
+    "clsx": "latest",
+    "core-js": "^3.14.0",
+    "formik": "^2.2.8",
+    "netmask": "^2.0.2",
+    "node-sass": "^6.0.0",
+    "react": "latest",
+    "react-app-polyfill": "^2.0.0",
+    "react-dom": "latest",
+    "react-scripts": "latest",
+    "yup": "^0.32.9"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all",
+      "ie 11"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version",
+      "ie 11"
+    ]
+  }
+}

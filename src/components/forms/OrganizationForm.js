@@ -30,10 +30,15 @@ export default function OrganizationForm(props) {
                 let subnets=[]
                 //str.substr(1, 2)
                 if (data.data.results) {
-                    data.data.results.push({id:0, completename: 'Не определена', comment: ''})
-                    setOrgs(data.data.results)
+                    const orgs=data.data.results.map(org=>{
+                        const newOrg=org
+                        newOrg.completename=newOrg.completename.slice(6)
+                        return newOrg
+                    })
+                    orgs.push({id:0, completename: 'Не определена', comment: ''})
+                    setOrgs(orgs)
                     if (data.data.ip){
-                        subnets=data.data.results.map(org=>{
+                        subnets=orgs.map(org=>{
                             try {
                                 let nets=org.comment.substr(org.comment.indexOf('[')+1, org.comment.indexOf(']')-org.comment.indexOf('[')-1)
                                 const ipExist=subnetsContainIp(nets,data.data.ip)

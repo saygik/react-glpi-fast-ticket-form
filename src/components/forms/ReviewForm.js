@@ -1,28 +1,11 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import {Box} from "@material-ui/core"
 import Link from "@material-ui/core/Link"
-
-
-const useStyles = makeStyles((theme) => ({
-    listItem: {
-        padding: theme.spacing(1, 0),
-    },
-    total: {
-        fontWeight: 700,
-    },
-    title: {
-        marginTop: theme.spacing(2),
-    },
-}));
+import Paper from "@material-ui/core/Paper"
 
 export default function ReviewForm(props) {
-    const classes = useStyles();
 
     return (
         <React.Fragment>
@@ -35,8 +18,12 @@ export default function ReviewForm(props) {
                                   ? <>
                                       <Typography variant="body2" gutterBottom >
                                           {`Заявка по вашему обращению была зарегистрирована
-                                            в системе support.rw.by под номером ${props.ticketId}`
+                                            в системе support.rw.by под номером `
                                           }
+                                      </Typography>
+                                      <Typography fontWeight={500} component="div" align="center"
+                                                  style={{marginBottom:'20px', fontWeight:'600', fontSize:'4rem',letterSpacing: '5px', color: '#556cd6'}}>
+                                          {props.ticketId}
                                       </Typography>
                                       <Link
                                           component="button"

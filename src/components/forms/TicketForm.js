@@ -7,7 +7,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Switch from '@material-ui/core/Switch';
 import {makeStyles, withStyles} from '@material-ui/core/styles'
 import { red, green } from '@material-ui/core/colors';
-import Button from "@material-ui/core/Button"
+
 
 const AntSwitch = withStyles((theme) => ({
 
@@ -42,26 +42,23 @@ export default function TicketForm(props) {
 
     return (
         <React.Fragment>
-            {/*<Typography variant="h6" gutterBottom>*/}
-            {/*    Заголовок*/}
-            {/*</Typography>*/}
             <Grid container spacing={2} style={{height:292}}>
-                <Grid item xs={12}>
-                    <Typography component="div">
-                        <Grid component="label" container alignItems="center" spacing={0}>
-                            <Grid item>Инцидент</Grid>
+                <Grid item xs={12} style={{paddingBottom:0}}>
+                        <Grid component="label" container justify="center" spacing={0}>
+                            <Grid item><Typography component="div">Инцидент</Typography></Grid>
                             <Grid item>
                                 <AntSwitch
+                                    size="small"
                                     checked={!!(tip-1)}
                                     onChange={(event, value) => setFieldValue('tip', value+1)}
                                     name="checkedC" />
                             </Grid>
-                            <Grid item>Запрос</Grid>
+                            <Grid item><Typography component="div">Запрос</Typography></Grid>
                         </Grid>
-                    </Typography>
+
                 </Grid>
 
-                <Grid item xs={12} >
+                <Grid item xs={12} style={{ paddingTop:0}}>
                     <TextField
                         autoFocus
                         required
@@ -89,7 +86,7 @@ export default function TicketForm(props) {
                         label="Описание"
                         helperText={touched.description ? errors.description : ""}
                         multiline
-                        rows={3}
+                        rows={2}
                         error={Boolean(errors.description)}
                         value={description}
                         onChange={handleChange}

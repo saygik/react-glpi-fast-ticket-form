@@ -6,7 +6,7 @@ import DownIcon from '@material-ui/icons/KeyboardArrowDown';
 import clsx from 'clsx';
 import { green } from '@material-ui/core/colors';
 import TicketWizard from './components/TicketWizard';
-import {faPencilAlt, faTimes} from "@fortawesome/free-solid-svg-icons"
+import {faEdit, faTimes} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {Typography} from "@material-ui/core"
 
@@ -26,10 +26,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   fabClosed:{
-    fontSize:'1.3rem',
+    fontSize:'1.2rem',
     fontWeight:'600',
     margin: theme.spacing(1) ,
-    letterSpacing: '2px'
+    letterSpacing: '5px'
   }
 }));
 
@@ -49,9 +49,9 @@ export default function App() {
               ? <FontAwesomeIcon icon={faTimes} style={{fontSize: '2rem'}}/>
               : <React.Fragment>
                     <Typography component="div" className={classes.fabClosed}  >
-                      Заявка техподдержки
+                      ЗАЯВКА В ИРЦ
                     </Typography>
-                    <FontAwesomeIcon icon={faPencilAlt} style={{fontSize: '2rem'}}/>
+                    <FontAwesomeIcon icon={faEdit} style={{fontSize: '1.75rem'}}/>
               </React.Fragment>
           }
         </Fab>

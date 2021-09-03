@@ -34,7 +34,7 @@
             copmonent: <AddressForm />,
             icon: <FontAwesomeIcon icon={faEnvelopeOpen} style={{fontSize:'1.5rem'}} />,
             validationSchema: Yup.object({
-                email: Yup.string().email("Неправильный адрес").required("Необхобимо заполнить"),
+                email: Yup.string().email("Неправильный адрес").required("Необходимо заполнить"),
             })
             },
         {
@@ -43,7 +43,7 @@
             copmonent:    <OrganizationForm />,
             icon: <FontAwesomeIcon icon={faSitemap} style={{fontSize:'1.5rem'}} />,
             validationSchema: Yup.object({
-                org:   Yup.number().required("Необхобимо заполнить").min(1,"Необходимо выбрать").integer(),
+                org:   Yup.number().required("Необходимо заполнить").min(1,"Необходимо выбрать").integer(),
             })
         },
         {
@@ -52,16 +52,16 @@
             copmonent: <TicketForm />,
             icon: <FontAwesomeIcon icon={faShareSquare} style={{fontSize:'1.5rem'}} />,
             validationSchema: Yup.object({
-                urgency:   Yup.number().required("Необхобимо заполнить").min(1,"Необходимо выбрать").positive().integer(),
+                urgency:   Yup.number().required("Необходимо заполнить").min(1,"Необходимо выбрать").positive().integer(),
                 tip:   Yup.number().min(1).max(2).integer(),
                 title: Yup
                     .string()
                     .min(4,"Хотя бы 4 символа")
-                    .required("Необхобимо заполнить"),
+                    .required("Необходимо заполнить"),
                 description: Yup
                     .string()
                     .min(4,"Хотя бы 4 символа")
-                    .required("Необхобимо заполнить"),
+                    .required("Необходимо заполнить"),
             })
         },
         {

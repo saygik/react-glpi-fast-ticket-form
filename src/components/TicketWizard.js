@@ -42,7 +42,7 @@
             },
         {
             id:1,
-            label:'РЕГИОН',
+            label:'КОНТАКТЫ',
             component:    <OrganizationForm />,
             icon: <FontAwesomeIcon icon={faSitemap} style={{fontSize:'1.5rem'}} />,
             validationSchema: Yup.object({

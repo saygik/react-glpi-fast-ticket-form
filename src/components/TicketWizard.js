@@ -122,7 +122,7 @@
                         "status":"1",
                         "urgency":"3"
                     }
-                    console.log('---',ticket)
+//                    console.log('---',ticket)
                     if (values.userId && values.userId>0) {
                         ticket._users_id_requester=`${values.userId}`
                         ticket.content=values.description

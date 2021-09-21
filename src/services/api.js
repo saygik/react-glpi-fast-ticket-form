@@ -1,12 +1,12 @@
 import axios from 'axios'
 
 axios.defaults.timeout = 50000
-// let _apiBase = 'https://glpi-go-api.brnv.rw/v1/'
 let _apiBase = 'http://vm-say-work.brnv.rw:9009/v1/'
-console.log('-env-',process.env.NODE_ENV)
 if (process.env.NODE_ENV==='production') {
     _apiBase=process.env.REACT_APP_GLPI_API_URL
 }
+console.log('-env-',process.env.NODE_ENV)
+console.log('-api-',_apiBase)
 
 
 const api = {};

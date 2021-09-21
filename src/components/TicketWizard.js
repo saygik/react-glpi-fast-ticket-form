@@ -20,6 +20,9 @@
         saveMe: false,
         userId:0,
         org: 0,
+        fio: "",
+        phone:"",
+        address:"",
         title: "",
         description:"",
         urgency:3,
@@ -31,7 +34,7 @@
         {
             id:0,
             label:'АДРЕС',
-            copmonent: <AddressForm />,
+            component: <AddressForm />,
             icon: <FontAwesomeIcon icon={faEnvelopeOpen} style={{fontSize:'1.5rem'}} />,
             validationSchema: Yup.object({
                 email: Yup.string().email("Неправильный адрес").required("Необходимо заполнить"),
@@ -40,16 +43,19 @@
         {
             id:1,
             label:'РЕГИОН',
-            copmonent:    <OrganizationForm />,
+            component:    <OrganizationForm />,
             icon: <FontAwesomeIcon icon={faSitemap} style={{fontSize:'1.5rem'}} />,
             validationSchema: Yup.object({
                 org:   Yup.number().required("Необходимо заполнить").min(1,"Необходимо выбрать").integer(),
+                fio:   Yup.string().required("Необходимо заполнить"),
+                phone: Yup.string().required("Необходимо заполнить"),
+                address: Yup.string(),
             })
         },
         {
             id:2,
             label:'ОПИСАНИЕ',
-            copmonent: <TicketForm />,
+            component: <TicketForm />,
             icon: <FontAwesomeIcon icon={faShareSquare} style={{fontSize:'1.5rem'}} />,
             validationSchema: Yup.object({
                 urgency:   Yup.number().required("Необходимо заполнить").min(1,"Необходимо выбрать").positive().integer(),
@@ -67,7 +73,7 @@
         {
             id:3,
             label:'ЗАЯВКА',
-            copmonent:    <Review />,
+            component:    <Review />,
         },
     ]
 
@@ -95,10 +101,16 @@
                 }
                 if (activeStep===steps.length-2) {
                     setLoader(true)
+                    const address =values.address ? '<br />Адрес: <em>'+values.address+ '</em></span></p>':''
                     const ticket={
                         "name": values.title,
                         "requesttypes_id":"7",
-                        "content":values.description,
+                        "content":values.description +
+                            '<p><span style=\"color: #3A5693;\">'+
+                            '<br />ФИО: <em>'+values.fio+'</em>'+
+                            '<br />Телефон: <em>'+values.phone+ '</em>' +
+                            address +
+                            '</span></p>',
                         "_users_id_requester": "0",
                         "_users_id_requester_notif": {
                             "use_notification":"1",
@@ -110,8 +122,10 @@
                         "status":"1",
                         "urgency":"3"
                     }
+                    console.log('---',ticket)
                     if (values.userId && values.userId>0) {
                         ticket._users_id_requester=`${values.userId}`
+                        ticket.content=values.description
                         delete ticket._users_id_requester_notif
                     }
                     setActiveStep((s) => s + 1)
@@ -146,9 +160,34 @@
                                     setActiveStep((s) => s + 2);
                                 } else setActiveStep((s) => s + 1);
                             }).catch(err=>{
-                            console.log('-ERR-',err)
-                            setLoader(false)
-                            setActiveStep(activeStep + 1);
+                                if (values.email.includes('rw.by')){
+                                    console.log('Try without .by')
+                                    api.findUser(values.email.replace('.by',''))
+                                        .then(user=>{
+                                            setLoader(false)
+                                            if (user.data.data.id>0) {
+                                                console.log('user: ', user.data.data.id)
+
+                                                formik.setFieldValue('org', user.data.data.entities_id)
+                                                formik.setFieldValue('userId', user.data.data.id)
+                                                console.log('1')
+
+                                                setDisableRegion(true)
+                                                setActiveStep((s) => s + 2);
+                                                console.log('2')
+
+                                                return
+                                            } else setActiveStep((s) => s + 1);
+                                        }).catch(err=>{
+                                        console.log('-ERR 2 attempt-',err)
+                                        setLoader(false)
+                                        setActiveStep(activeStep + 1);
+                                    })
+                                } else {
+                                    console.log('-ERR-',err)
+                                    setLoader(false)
+                                    setActiveStep(activeStep + 1);
+                                }
                         })
                     } else {
                         setActiveStep((s) => s + 1);
@@ -180,7 +219,11 @@
           (activeStep===0) && (!formik.errors.email
                                  && (formik.initialValues.email !== formik.values.email)) ||
                 (activeStep===1) && (!formik.errors.org
-                                 && (formik.initialValues.org !== formik.values.org)) ||
+                                 && (formik.initialValues.org !== formik.values.org))
+                                 && !formik.errors.phone
+                                 && (formik.initialValues.phone !== formik.values.phone)
+                                 && !formik.errors.fio
+                                 && (formik.initialValues.fio !== formik.values.fio) ||
                 (activeStep===2) && (!formik.errors.title
                                  && (formik.initialValues.title !== formik.values.title))
                                  && !formik.errors.description

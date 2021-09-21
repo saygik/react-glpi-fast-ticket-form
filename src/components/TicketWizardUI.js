@@ -35,7 +35,7 @@ export default function TicketWizardUI(props) {
                             БЫСТРАЯ ЗАЯВКА
                         </Typography>
                         <Typography component="div" align="right" style={{fontSize:'12px',letterSpacing: '1px', color: '#929191'}}>
-                            v0.3.5-beta
+                            v0.4.0-beta
                         </Typography>
                     </Box>
                     <Stepper activeStep={activeStep} className={classes.stepper} alternativeLabel>
@@ -104,7 +104,7 @@ export default function TicketWizardUI(props) {
                                     e.preventDefault()
                                     formik.handleSubmit()
                                 }}>
-                                    {React.cloneElement(steps[activeStep].copmonent, formik)}
+                                    {React.cloneElement(steps[activeStep].component, formik)}
 
                                     {loader && <BigLoader/>}
                                     <div className={classes.buttons}>

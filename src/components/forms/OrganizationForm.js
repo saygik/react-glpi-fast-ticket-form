@@ -16,10 +16,12 @@ const YEARS=[
 ]
 export default function OrganizationForm(props) {
     const {
-        values: { org },
+        values: { org, fio, phone, address },
         errors,
         touched,
         setFieldValue,
+        handleChange,
+        handleBlur
     } = props;
 
    const [orgs, setOrgs]=useState([{id:0, completename: 'Не определена', comment: ''}])
@@ -99,6 +101,65 @@ export default function OrganizationForm(props) {
                             </Box>
                     }
                 </Grid>
+                <Grid item xs={12} style={{ paddingTop:0}}>
+                    <TextField
+                        autoFocus
+                        required
+                        id="fio"
+                        name="fio"
+                        label="ФИО"
+                        helperText={touched.fio ? errors.fio : ""}
+                        error={Boolean(errors.fio)}
+                        value={fio}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        fullWidth
+                        inputProps={{
+                            style: {
+                                fontSize:16
+                            }
+                        }}
+                    />
+                </Grid>
+
+                <Grid item xs={12} style={{ paddingTop:0}}>
+                <TextField
+                    required
+                    id="phone"
+                    name="phone"
+                    label="Телефон"
+                    helperText={touched.phone ? errors.phone : ""}
+                    error={Boolean(errors.phone)}
+                    value={phone}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    fullWidth
+                    inputProps={{
+                        style: {
+                            fontSize:16
+                        }
+                    }}
+                />
+            </Grid>
+                <Grid item xs={12} style={{ paddingTop:0}}>
+                    <TextField
+                        id="address"
+                        name="address"
+                        label="Адрес"
+                        helperText={touched.address ? errors.address : ""}
+                        error={Boolean(errors.address)}
+                        value={address}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        fullWidth
+                        inputProps={{
+                            style: {
+                                fontSize:16
+                            }
+                        }}
+                    />
+                </Grid>
+
             </Grid>
         </React.Fragment>
     );

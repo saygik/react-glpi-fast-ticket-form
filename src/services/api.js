@@ -24,6 +24,6 @@ const apiData = async  (url, token='', method='get', data={}) => {
 api.findUser = async (user) => await apiData('user/findbymail/' +user )
 api.getOrgs = async () => await apiData('organizations/level/3' )
 api.addTicket = async (ticket) =>
-    await apiData('ticket', '','post',JSON.stringify(ticket))
+    await apiData('ticket44', '','post',JSON.stringify(ticket))
 
 export default api

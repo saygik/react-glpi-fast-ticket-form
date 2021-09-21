@@ -101,14 +101,14 @@
                 }
                 if (activeStep===steps.length-2) {
                     setLoader(true)
-                    const address =values.address ? '<br />Адрес: <em>'+values.address+ '</em></span></p>':''
+                    const address =values.address ? '<br /><b>Адрес:</b> <em>'+values.address+ '</em>':''
                     const ticket={
                         "name": values.title,
                         "requesttypes_id":"7",
                         "content":values.description +
                             '<p><span style=\"color: #3A5693;\">'+
-                            '<br />ФИО: <em>'+values.fio+'</em>'+
-                            '<br />Телефон: <em>'+values.phone+ '</em>' +
+                            '<br /><b>ФИО:</b> <em>'+values.fio+'</em>'+
+                            '<br /><b>Телефон:</b> <em>'+values.phone+ '</em>' +
                             address +
                             '</span></p>',
                         "_users_id_requester": "0",

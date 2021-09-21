@@ -35,7 +35,7 @@ export default function TicketWizardUI(props) {
                             БЫСТРАЯ ЗАЯВКА
                         </Typography>
                         <Typography component="div" align="right" style={{fontSize:'12px',letterSpacing: '1px', color: '#929191'}}>
-                            v0.4.0-beta
+                            v0.5.0-beta
                         </Typography>
                     </Box>
                     <Stepper activeStep={activeStep} className={classes.stepper} alternativeLabel>

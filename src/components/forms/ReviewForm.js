@@ -6,7 +6,6 @@ import Link from "@material-ui/core/Link"
 import Paper from "@material-ui/core/Paper"
 
 export default function ReviewForm(props) {
-
     return (
         <React.Fragment>
 
@@ -38,9 +37,9 @@ export default function ReviewForm(props) {
                               </>
                                   : props.ticketId<0
                                      ? <Typography variant="body2" gutterBottom >
-                                         Попробуйте оставить заявку позднее.
+                                        Ошибка создания заявки. Попробуйте оставить заявку позднее.
                                        </Typography>
-                                     : ''
+                                     :  ''
                             }
                     </Box>
                 </Grid>

@@ -128,6 +128,7 @@
                         ticket.content=values.description
                         delete ticket._users_id_requester_notif
                     }
+//                    console.log('---',ticket)
                     setActiveStep((s) => s + 1)
 //                    console.log('-ticket-',ticket)
                     api.addTicket(ticket)
@@ -153,41 +154,40 @@
                         api.findUser(values.email)
                             .then(user=>{
                                 setLoader(false)
-                                if (user.data.data.id>0) {
-                                    formik.setFieldValue('org', user.data.data.entities_id)
+//                                console.log('---XX',user)
+                                if (user.status===200 && user.data && user.data.data.id>0) {
+                                    formik.setFieldValue('org', user.data.data.entities_self_service)
                                     formik.setFieldValue('userId', user.data.data.id)
                                     setDisableRegion(true)
                                     setActiveStep((s) => s + 2);
-                                } else setActiveStep((s) => s + 1);
-                            }).catch(err=>{
-                                if (values.email.includes('rw.by')){
-                                    console.log('Try without .by')
-                                    api.findUser(values.email.replace('.by',''))
-                                        .then(user=>{
-                                            setLoader(false)
-                                            if (user.data.data.id>0) {
-                                                console.log('user: ', user.data.data.id)
-
-                                                formik.setFieldValue('org', user.data.data.entities_id)
-                                                formik.setFieldValue('userId', user.data.data.id)
-                                                console.log('1')
-
-                                                setDisableRegion(true)
-                                                setActiveStep((s) => s + 2);
-                                                console.log('2')
-
-                                                return
-                                            } else setActiveStep((s) => s + 1);
-                                        }).catch(err=>{
-                                        console.log('-ERR 2 attempt-',err)
-                                        setLoader(false)
-                                        setActiveStep(activeStep + 1);
-                                    })
                                 } else {
+                                    if (values.email.includes('rw.by')){
+                                        setLoader(true)
+                                        console.log('Try without .by')
+                                        api.findUser(values.email.replace('.by',''))
+                                            .then(user=>{
+                                                setLoader(false)
+                                                if (user.status===200 && user.data && user.data.data.id>0) {
+                                                    formik.setFieldValue('org', user.data.data.entities_self_service)
+                                                    formik.setFieldValue('userId', user.data.data.id)
+                                                    setDisableRegion(true)
+                                                    setActiveStep((s) => s + 2);
+                                                    return
+                                                } else setActiveStep((s) => s + 1);
+                                            }).catch(err=>{
+                                            console.log('-ERR 2 attempt-',err)
+                                            setLoader(false)
+                                            setActiveStep(activeStep + 1);
+                                        })
+                                    } else {
+                                        setLoader(false)
+                                        setActiveStep((s) => s + 1);                                    }
+                                };
+                            }).catch(err=>{
                                     console.log('-ERR-',err)
+                                    setTicketId(-1)
                                     setLoader(false)
-                                    setActiveStep(activeStep + 1);
-                                }
+                                    setActiveStep(3);
                         })
                     } else {
                         setActiveStep((s) => s + 1);

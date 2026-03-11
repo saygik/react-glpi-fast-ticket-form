@@ -169,6 +169,7 @@ export default function TicketWizardUI(props) {
                             marginLeft: '-20px',
                         }}
                     >
+
                         {!!steps[activeStep].icon && (
                             <Avatar
                                 sx={(theme) => ({

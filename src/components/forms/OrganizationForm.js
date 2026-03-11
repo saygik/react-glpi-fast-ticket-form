@@ -65,7 +65,12 @@ export default function OrganizationForm(props) {
     return (
         <React.Fragment>
 
-            <Grid container spacing={3} style={{ height: 300 }}>
+            <Grid container spacing={2} style={{ height: 300 }}>
+                <Grid item xs={12}>
+                    <Typography variant="subtitle2" color="textSecondary" gutterBottom>
+                        Организация и контакты
+                    </Typography>
+                </Grid>
                 <Grid item xs={12} md={12} style={{ width: '100%' }} >
                     {
                         orgs.length > 1 ?
@@ -83,6 +88,8 @@ export default function OrganizationForm(props) {
                                 value={orgs.length > 1 ? org : 0}
                                 onChange={props.handleChange}
                                 fullWidth
+                                size="small"
+                                margin="dense"
                             >
                                 {orgs.map(option => (
                                     <MenuItem key={option.id} value={option.id}>
@@ -113,11 +120,8 @@ export default function OrganizationForm(props) {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         fullWidth
-                        inputProps={{
-                            style: {
-                                fontSize: 16
-                            }
-                        }}
+                        size="small"
+                        margin="dense"
                     />
                 </Grid>
 
@@ -133,11 +137,8 @@ export default function OrganizationForm(props) {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         fullWidth
-                        inputProps={{
-                            style: {
-                                fontSize: 16
-                            }
-                        }}
+                        size="small"
+                        margin="dense"
                     />
                 </Grid>
                 <Grid item xs={12} style={{ paddingTop: 0, width: '100%' }} >
@@ -151,11 +152,8 @@ export default function OrganizationForm(props) {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         fullWidth
-                        inputProps={{
-                            style: {
-                                fontSize: 16
-                            }
-                        }}
+                        size="small"
+                        margin="dense"
                     />
                 </Grid>
 

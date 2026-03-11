@@ -19,7 +19,7 @@ export default function AddressForm(props) {
 
     return (
         <React.Fragment>
-            <Grid container spacing={3} style={{ height: 300 }}>
+            <Grid container style={{ height: 300 }}>
                 <Grid item xs={12} style={{ width: '100%' }}>
                     <TextField
                         autoFocus
@@ -33,11 +33,8 @@ export default function AddressForm(props) {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         fullWidth
-                        inputProps={{
-                            style: {
-                                fontSize: 16
-                            }
-                        }}
+                        size="small"
+                        margin="dense"
 
                     />
                 </Grid>
@@ -47,20 +44,24 @@ export default function AddressForm(props) {
                         control={
                             <Checkbox
                                 checked={saveMe}
-                                onChange={(event, value) => setFieldValue('saveMe', event.target.checked)}
-                                name="checkedB"
+                                onChange={(event) => setFieldValue('saveMe', event.target.checked)}
+                                name="saveMe"
                                 color="primary"
+                                size="small"
                             />
                         }
-                        label="Запомнить меня"
+                        label={
+                            <Typography variant="body2" color="textSecondary">
+                                Запомнить меня на компьютере
+                            </Typography>
+                        }
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <Box m={1}>
-                        <Typography variant="body2" gutterBottom >
-                            Если указанный email будет обнаружен в системе,
-                            то следующий шаг будет пропущен и заявка будет
-                            создана в организации обнаруженного пользователя.
+                    <Box mt={1}>
+                        <Typography variant="caption" color="textSecondary">
+                            Если указанный email будет обнаружен в системе, следующий шаг будет пропущен и заявка
+                            будет создана в организации обнаруженного пользователя.
                         </Typography>
                     </Box>
                 </Grid>

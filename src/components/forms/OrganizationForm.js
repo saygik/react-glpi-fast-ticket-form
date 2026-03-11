@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem'
 import CircularProgress from '@mui/material/CircularProgress';
 import api from "../../services/api"
-import {subnetsContainIp} from '../../services/utils'
+import { subnetsContainIp } from '../../services/utils'
 import Box from "@mui/material/Box"
-const YEARS=[
-    {value:'-', label:'не определено'},
-    {value:'1234', label:'1'},
-    {value:'5234', label:'2'},
-    {value:'9234', label:'3'},
+const YEARS = [
+    { value: '-', label: 'не определено' },
+    { value: '1234', label: '1' },
+    { value: '5234', label: '2' },
+    { value: '9234', label: '3' },
 ]
 export default function OrganizationForm(props) {
     const {
@@ -23,84 +23,84 @@ export default function OrganizationForm(props) {
         handleBlur
     } = props;
 
-   const [orgs, setOrgs]=useState([{id:0, completename: 'Не определена', comment: ''}])
-   const [loading, setLoading]=useState(true)
-    useEffect(()=>{
+    const [orgs, setOrgs] = useState([{ id: 0, completename: 'Не определена', comment: '' }])
+    const [loading, setLoading] = useState(true)
+    useEffect(() => {
         api.getOrgs()
-            .then(data=>{
-                let subnets=[]
+            .then(data => {
+                let subnets = []
                 //str.substr(1, 2)
                 if (data.data.results) {
-                    const orgs=data.data.results.map(org=>{
-                        const newOrg=org
-                        newOrg.completename=newOrg.completename.slice(6)
+                    const orgs = data.data.results.map(org => {
+                        const newOrg = org
+                        newOrg.completename = newOrg.completename.slice(6)
                         return newOrg
                     })
-                    orgs.push({id:0, completename: 'Не определена', comment: ''})
+                    orgs.push({ id: 0, completename: 'Не определена', comment: '' })
                     setOrgs(orgs)
-                    if (data.data.ip){
-                        subnets=orgs.map(org=>{
+                    if (data.data.ip) {
+                        subnets = orgs.map(org => {
                             try {
-                                let nets=org.comment.substr(org.comment.indexOf('[')+1, org.comment.indexOf(']')-org.comment.indexOf('[')-1)
-                                const ipExist=subnetsContainIp(nets,data.data.ip)
-                                return {id: org.id, containIp: ipExist.containIp, mask: ipExist.mask}
-                            }catch (err) {
+                                let nets = org.comment.substr(org.comment.indexOf('[') + 1, org.comment.indexOf(']') - org.comment.indexOf('[') - 1)
+                                const ipExist = subnetsContainIp(nets, data.data.ip)
+                                return { id: org.id, containIp: ipExist.containIp, mask: ipExist.mask }
+                            } catch (err) {
                                 console.log('-ERR-', err)
-                                return {id: org.id, isIp: false}
+                                return { id: org.id, isIp: false }
                             }
                         })
-                        const currentOrg=subnets.filter(net=>net.containIp).reduce((res, org)=>{
-                            if (org.mask>res.mask) return org
+                        const currentOrg = subnets.filter(net => net.containIp).reduce((res, org) => {
+                            if (org.mask > res.mask) return org
                             else return res
-                        },{id:0,mask:0})
-                        if (currentOrg.id>0) setFieldValue('org',currentOrg.id)
+                        }, { id: 0, mask: 0 })
+                        if (currentOrg.id > 0) setFieldValue('org', currentOrg.id)
                     }
                 } else setOrgs([]);
                 setLoading(false)
-            }).catch(err=>{
-            console.log('-ERR-',err)
-            setLoading(false)
-        })
-    },[])
+            }).catch(err => {
+                console.log('-ERR-', err)
+                setLoading(false)
+            })
+    }, [])
     return (
         <React.Fragment>
 
-            <Grid container spacing={3} style={{height:300}}>
-                <Grid item xs={12} md={12}>
+            <Grid container spacing={3} style={{ height: 300 }}>
+                <Grid item xs={12} md={12} style={{ width: '100%' }} >
                     {
-                      orgs.length > 1 ?
-                        <TextField
-                        name="org"
-                        label="Регион обслуживания"
-                        select
-                        helperText={touched.org ? errors.org : ""}
-                        error={Boolean(errors.org)}
-                        SelectProps={{
-                            MenuProps: {
-                                disableScrollLock: true,
-                            },
-                        }}
-                        value={orgs.length>1 ? org : 0 }
-                        onChange={props.handleChange}
-                        fullWidth
-                    >
-                        {orgs.map(option => (
-                            <MenuItem key={option.id} value={option.id}>
-                                {option.completename}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                        : loading
-                          ? <CircularProgress size={40}/>
-                          :
-                            <Box m={3}>
-                                <Typography variant="body2" gutterBottom >
-                                    Ошибка. Список организаций недоступен.
-                                </Typography>
-                            </Box>
+                        orgs.length > 1 ?
+                            <TextField
+                                name="org"
+                                label="Регион обслуживания"
+                                select
+                                helperText={touched.org ? errors.org : ""}
+                                error={Boolean(errors.org)}
+                                SelectProps={{
+                                    MenuProps: {
+                                        disableScrollLock: true,
+                                    },
+                                }}
+                                value={orgs.length > 1 ? org : 0}
+                                onChange={props.handleChange}
+                                fullWidth
+                            >
+                                {orgs.map(option => (
+                                    <MenuItem key={option.id} value={option.id}>
+                                        {option.completename}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                            : loading
+                                ? <CircularProgress size={40} />
+                                :
+                                <Box m={3}>
+                                    <Typography variant="body2" gutterBottom >
+                                        Ошибка. Список организаций недоступен.
+                                    </Typography>
+                                </Box>
                     }
                 </Grid>
-                <Grid item xs={12} style={{ paddingTop:0}}>
+                <Grid item xs={12} style={{ paddingTop: 0, width: '100%' }} >
                     <TextField
                         autoFocus
                         required
@@ -115,32 +115,32 @@ export default function OrganizationForm(props) {
                         fullWidth
                         inputProps={{
                             style: {
-                                fontSize:16
+                                fontSize: 16
                             }
                         }}
                     />
                 </Grid>
 
-                <Grid item xs={12} style={{ paddingTop:0}}>
-                <TextField
-                    required
-                    id="phone"
-                    name="phone"
-                    label="Телефон"
-                    helperText={touched.phone ? errors.phone : ""}
-                    error={Boolean(errors.phone)}
-                    value={phone}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    fullWidth
-                    inputProps={{
-                        style: {
-                            fontSize:16
-                        }
-                    }}
-                />
-            </Grid>
-                <Grid item xs={12} style={{ paddingTop:0}}>
+                <Grid item xs={12} style={{ paddingTop: 0, width: '100%' }} >
+                    <TextField
+                        required
+                        id="phone"
+                        name="phone"
+                        label="Телефон"
+                        helperText={touched.phone ? errors.phone : ""}
+                        error={Boolean(errors.phone)}
+                        value={phone}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        fullWidth
+                        inputProps={{
+                            style: {
+                                fontSize: 16
+                            }
+                        }}
+                    />
+                </Grid>
+                <Grid item xs={12} style={{ paddingTop: 0, width: '100%' }} >
                     <TextField
                         id="address"
                         name="address"
@@ -153,7 +153,7 @@ export default function OrganizationForm(props) {
                         fullWidth
                         inputProps={{
                             style: {
-                                fontSize:16
+                                fontSize: 16
                             }
                         }}
                     />

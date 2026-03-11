@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Step from '@mui/material/Step';
@@ -31,69 +31,81 @@ export default function TicketWizardUI(props) {
     } = props;
     return (
         <Box
-          sx={{
-            position: 'absolute',
-            bottom: '20px',
-            right: '10px',
-            width: 360,
-            mx: '20px',
-            '@media (min-width:500px)': {
-              width: 360,
-              mx: 'auto',
-            },
-          }}
+            sx={(theme) => ({
+                position: 'absolute',
+                bottom: '20px',
+                right: '10px',
+                width: 360,
+                mx: '20px',
+                '@media (min-width:500px)': {
+                    width: 360,
+                    mx: 'auto',
+                },
+                // фон под карточкой, чтобы не было «прозрачного» прямоугольника
+                backgroundColor: theme.palette.background.default,
+            })}
         >
             <Paper
-              sx={{
-                backgroundColor: 'rgb(233, 238, 244)',
-                mt: '20px',
-                mb: '10px',
-                p: 0,
-                pb: '20px',
-                position: 'relative',
-                borderRadius: '15px',
-                '@media (min-width:500px)': {
-                  mt: '60px',
-                  mb: '60px',
-                },
-              }}
+                sx={(theme) => ({
+                    backgroundColor: theme.palette.background.paper,
+                    boxShadow: theme.shadows[8],
+                    position: 'relative',
+                    borderRadius: '0x',
+                    pb: '10px',
+                    mb: '60px',
+                    '@media (min-width:500px)': {
+
+                    },
+                })}
             >
 
                 <Box
-                  sx={{
-                    backgroundColor: '#fff',
-                    m: 0,
-                    p: '10px',
-                    position: 'relative',
-                    borderRadius: '15px 15px 0 0',
-                  }}
+                    sx={(theme) => ({
+                        backgroundColor: theme.palette.common.white,
+                        m: 0,
+                        p: '10px',
+                        position: 'relative',
+                        borderRadius: '0x',
+                        borderBottom: `1px solid ${theme.palette.divider}`,
+                    })}
                 >
                     <Typography
-                      component="div"
-                      align="center"
-                      sx={{
-                        fontSize: '1.2rem',
-                        fontWeight: 600,
-                        letterSpacing: '5px',
-                        color: '#737171',
-                      }}
+                        component="div"
+                        align="center"
+                        sx={(theme) => ({
+                            fontSize: '1.2rem',
+                            fontWeight: 600,
+                            letterSpacing: '5px',
+                            color: theme.palette.text.primary,
+                        })}
                     >
                         БЫСТРАЯ ЗАЯВКА
                     </Typography>
-                    <Typography component="div" align="right" style={{ fontSize: '12px', letterSpacing: '1px', color: '#929191' }}>
-                        v0.6.1-beta
+                    <Typography
+                        component="div"
+                        align="right"
+                        sx={(theme) => ({
+                            fontSize: '0.75rem',
+                            letterSpacing: '0.08em',
+                            color: theme.palette.text.secondary,
+                        })}
+                    >
+                        v1.0.0
                     </Typography>
                 </Box>
                 <Stepper
-                  activeStep={activeStep}
-                  alternativeLabel
-                  sx={{
-                    backgroundColor: 'rgb(233, 238, 244)',
-                    mt: '20px',
-                    mb: '10px',
-                    p: '20px 0 20px',
-                    fontSize: '3rem'
-                  }}
+                    activeStep={activeStep}
+                    alternativeLabel
+                    sx={(theme) => ({
+                        backgroundColor: theme.palette.background.paper,
+                        mt: '20px',
+                        mb: '10px',
+                        p: '20px 0 20px',
+                        fontSize: '3rem',
+                        '& .MuiStepConnector-line': {
+                            borderColor: theme.palette.divider,
+                        },
+                    })}
                 >
 
                     {steps.map((step) => {
@@ -120,42 +132,55 @@ export default function TicketWizardUI(props) {
                             <Step key={step.id} {...stepProps} >
                                 <StepLabel
                                     StepIconComponent={stepComponent}
-                                        sx={{
-                                          '& .MuiStepLabel-iconContainer': { transform: 'scale(1.6)' },
-                                          '& .MuiStepLabel-label': { mt: '12px' },
-                                        }}
-                                >{label}</StepLabel>
+                                    sx={(theme) => ({
+                                        '& .MuiStepLabel-iconContainer': { transform: 'scale(1.6)' },
+                                        '& .MuiStepLabel-label': {
+                                            mt: '12px',
+                                            color: theme.palette.text.secondary,
+                                        },
+                                    })}
+                                >
+                                    {label}
+                                </StepLabel>
                             </Step>
                         )
                     })}
                 </Stepper>
 
                 <Box
-                  sx={{
-                    backgroundColor: '#fff',
-                    mx: '20px',
-                    p: '20px',
-                    pt: '40px',
-                    position: 'relative',
-                    borderRadius: '10px',
-                  }}
+                    sx={(theme) => ({
+                        backgroundColor: theme.palette.common.white,
+                        mx: '20px',
+                        p: '20px',
+                        pt: '40px',
+                        position: 'relative',
+                        borderRadius: '10px',
+                        border: `1px solid ${theme.palette.divider}`,
+                    })}
                 >
                     <Grid
-                      component="div"
-                      container
-                      justifyContent="center"
-                      spacing={0}
-                      sx={{
-                        position: 'absolute',
-                        top: '-20px',
-                        marginLeft: '-20px',
-                      }}
+                        component="div"
+                        container
+                        justifyContent="center"
+                        spacing={0}
+                        sx={{
+                            position: 'absolute',
+                            top: '-20px',
+                            marginLeft: '-20px',
+                        }}
                     >
-                        {
-                            !!steps[activeStep].icon && <Avatar sx={{ height: '45px', width: '45px', color: '#fff', bgcolor: green[500] }}>
+                        {!!steps[activeStep].icon && (
+                            <Avatar
+                                sx={(theme) => ({
+                                    height: '45px',
+                                    width: '45px',
+                                    color: theme.palette.getContrastText(theme.palette.primary.main),
+                                    bgcolor: theme.palette.primary.main,
+                                })}
+                            >
                                 {React.cloneElement(steps[activeStep].icon)}
                             </Avatar>
-                        }
+                        )}
                     </Grid>
                     {activeStep === steps.length - 1 ? (
                         <React.Fragment>
@@ -166,9 +191,11 @@ export default function TicketWizardUI(props) {
                                 onClick={() => {
                                     handleReset()
                                     userFromLocalStorage()
-                                    }}
-                                    sx={{ mt: '30px', ml: '10px' }}
-                                >
+                                }}
+                                sx={{ mt: '30px', ml: '10px' }}
+                                variant="contained"
+                                color="primary"
+                            >
                                 Новая заявка
                             </Button>
                         </React.Fragment>
@@ -189,7 +216,6 @@ export default function TicketWizardUI(props) {
                                     )}
                                     <Button
                                         type='submit'
-                                        variant="contained"
                                         color="primary"
                                         sx={{ mt: '30px', ml: '10px' }}
                                         disabled={!activeStepValid}

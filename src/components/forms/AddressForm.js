@@ -20,7 +20,7 @@ export default function AddressForm(props) {
     return (
         <React.Fragment>
             <Grid container spacing={3} style={{ height: 300 }}>
-                <Grid xs={12}>
+                <Grid item xs={12} style={{ width: '100%' }}>
                     <TextField
                         autoFocus
                         required
@@ -38,8 +38,10 @@ export default function AddressForm(props) {
                                 fontSize: 16
                             }
                         }}
+
                     />
                 </Grid>
+
                 <Grid item xs={12}>
                     <FormControlLabel
                         control={
@@ -53,14 +55,15 @@ export default function AddressForm(props) {
                         label="Запомнить меня"
                     />
                 </Grid>
-                <Box m={3}>
-                    <Typography variant="body2" gutterBottom >
-                        Если указанный email будет обнаружен в системе,
-                        то следующий шаг будет пропущен и заявка будет
-                        создана в организации обнаруженного пользователя.
-                    </Typography>
-
-                </Box>
+                <Grid item xs={12}>
+                    <Box m={1}>
+                        <Typography variant="body2" gutterBottom >
+                            Если указанный email будет обнаружен в системе,
+                            то следующий шаг будет пропущен и заявка будет
+                            создана в организации обнаруженного пользователя.
+                        </Typography>
+                    </Box>
+                </Grid>
             </Grid>
         </React.Fragment>
     );

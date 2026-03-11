@@ -1,8 +1,27 @@
 import { red } from '@mui/material/colors';
 import { createTheme } from '@mui/material/styles';
 
-// A custom theme for this app
 const theme = createTheme({
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#3b82f6',   // насыщенный, но не ядовитый синий
+    },
+    secondary: {
+      main: '#0ea5e9',
+    },
+    error: {
+      main: red.A400,
+    },
+    background: {
+      default: 'transparent',   // не перекрашиваем общий фон страницы (важно для встраивания в GLPI)
+      paper: '#e5e7eb',         // фон карточки мастера (серый чуть темнее)
+    },
+    text: {
+      primary: '#111827',   // тёмный серый для текста
+      secondary: '#4b5563', // средний серый
+    },
+  },
   typography: {
     "fontFamily": `"Roboto", "Helvetica", "Arial", sans-serif`,
     "fontSize": 14,
@@ -11,10 +30,25 @@ const theme = createTheme({
     "fontWeightMedium": 500
   },
   components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundImage: 'none',
+          borderRadius: 16,
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          borderRadius: 999,
+        },
+      },
+    },
     MuiInputBase: {
       styleOverrides: {
         root: {
-          color: 'rgba(0, 0, 0, 0.87)',
           cursor: 'text',
           display: 'inline-flex',
           position: 'relative',
@@ -27,11 +61,8 @@ const theme = createTheme({
           letterSpacing: '0.00938em!important'
         },
         input: {
-          padding: '6px 0 7px !important',
-          fontSize: '14!important',
-          "&&": {
-            fontSize: '14!important',
-          },
+          padding: '8px 3px 12px 4px !important',
+
           "&:required": {
             border: '0!important',
             "&:valid": {
@@ -40,20 +71,6 @@ const theme = createTheme({
           }
         },
       },
-    },
-  },
-  palette: {
-    primary: {
-      main: '#556cd6',
-    },
-    secondary: {
-      main: '#19857b',
-    },
-    error: {
-      main: red.A400,
-    },
-    background: {
-      default: '#fff',
     },
   },
 });

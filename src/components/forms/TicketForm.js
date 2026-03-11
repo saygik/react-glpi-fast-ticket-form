@@ -8,26 +8,26 @@ import { red, green } from '@mui/material/colors';
 
 
 const AntSwitch = styled(Switch)(() => ({
-  '& .MuiSwitch-switchBase': {
-    color: red[500],
-    '& + .MuiSwitch-track': {
-      opacity: 1,
-      backgroundColor: red[200],
+    '& .MuiSwitch-switchBase': {
+        color: red[500],
+        '& + .MuiSwitch-track': {
+            opacity: 1,
+            backgroundColor: red[200],
+        },
+        '&.Mui-checked': {
+            color: green[500],
+        },
+        '&.Mui-checked + .MuiSwitch-track': {
+            backgroundColor: green[500],
+        },
     },
-    '&.Mui-checked': {
-      color: green[500],
-    },
-    '&.Mui-checked + .MuiSwitch-track': {
-      backgroundColor: green[500],
-    },
-  },
 }));
 
 
 
 export default function TicketForm(props) {
     const {
-        values: { title, description, urgency,tip },
+        values: { title, description, urgency, tip },
         errors,
         touched,
         setFieldValue,
@@ -37,23 +37,23 @@ export default function TicketForm(props) {
 
     return (
         <React.Fragment>
-            <Grid container spacing={2} style={{height:292}}>
-                <Grid item xs={12} style={{paddingBottom:0}}>
-                        <Grid component="label" container justifyContent="center" spacing={0}>
-                            <Grid item><Typography component="div">Инцидент</Typography></Grid>
-                            <Grid item>
-                                <AntSwitch
-                                    size="small"
-                                    checked={!!(tip-1)}
-                                    onChange={(event, value) => setFieldValue('tip', value+1)}
-                                    name="checkedC" />
-                            </Grid>
-                            <Grid item><Typography component="div">Запрос</Typography></Grid>
+            <Grid container spacing={2} style={{ height: 292 }}>
+                <Grid item xs={12} style={{ paddingBottom: 0 }}>
+                    <Grid component="label" container justifyContent="center" spacing={0}>
+                        <Grid item><Typography component="div">Инцидент</Typography></Grid>
+                        <Grid item>
+                            <AntSwitch
+                                size="small"
+                                checked={!!(tip - 1)}
+                                onChange={(event, value) => setFieldValue('tip', value + 1)}
+                                name="checkedC" />
                         </Grid>
+                        <Grid item><Typography component="div">Запрос</Typography></Grid>
+                    </Grid>
 
                 </Grid>
 
-                <Grid item xs={12} style={{ paddingTop:0}}>
+                <Grid item xs={12} style={{ paddingTop: 0, width: '100%' }} >
                     <TextField
                         autoFocus
                         required
@@ -68,12 +68,12 @@ export default function TicketForm(props) {
                         fullWidth
                         inputProps={{
                             style: {
-                                fontSize:16
+                                fontSize: 16
                             }
                         }}
                     />
                 </Grid>
-                <Grid item xs={12} >
+                <Grid item xs={12} style={{ width: '100%' }} >
                     <TextField
                         required
                         id="description"
@@ -89,7 +89,7 @@ export default function TicketForm(props) {
                         fullWidth
                         inputProps={{
                             style: {
-                                fontSize:16
+                                fontSize: 16
                             }
                         }}
                     />

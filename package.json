@@ -9,35 +9,33 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.35",
-    "@fortawesome/free-solid-svg-icons": "^5.15.3",
-    "@fortawesome/react-fontawesome": "^0.1.14",
-    "@material-ui/core": "latest",
-    "@material-ui/icons": "^4.11.2",
-    "axios": "^0.21.1",
-    "clsx": "latest",
-    "core-js": "^3.14.0",
-    "formik": "^2.2.8",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@fortawesome/fontawesome-svg-core": "^7.2.0",
+    "@fortawesome/free-solid-svg-icons": "^7.2.0",
+    "@fortawesome/react-fontawesome": "^3.2.0",
+    "@mui/icons-material": "^7.3.9",
+    "@mui/material": "^7.3.9",
+    "axios": "^1.13.6",
+    "clsx": "^2.1.1",
+    "formik": "^2.4.9",
     "netmask": "^2.0.2",
-    "node-sass": "^6.0.0",
-    "react": "latest",
-    "react-app-polyfill": "^2.0.0",
-    "react-dom": "latest",
-    "react-scripts": "latest",
-    "yup": "^0.32.9"
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-scripts": "^5.0.1",
+    "sass": "^1.98.0",
+    "yup": "^1.7.1"
   },
   "browserslist": {
     "production": [
       ">0.2%",
       "not dead",
-      "not op_mini all",
-      "ie 11"
+      "not op_mini all"
     ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
-      "last 1 safari version",
-      "ie 11"
+      "last 1 safari version"
     ]
   }
 }

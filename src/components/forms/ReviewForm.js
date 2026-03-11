@@ -1,9 +1,8 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import {Box} from "@material-ui/core"
-import Link from "@material-ui/core/Link"
-import Paper from "@material-ui/core/Paper"
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Box from "@mui/material/Box"
+import Link from "@mui/material/Link"
 
 export default function ReviewForm(props) {
     return (
@@ -20,7 +19,7 @@ export default function ReviewForm(props) {
                                             в системе support.rw.by под номером `
                                           }
                                       </Typography>
-                                      <Typography fontWeight={500} component="div" align="center"
+                                      <Typography sx={{ fontWeight: 500 }} component="div" align="center"
                                                   style={{marginBottom:'20px', fontWeight:'600', fontSize:'4rem',letterSpacing: '5px', color: '#556cd6'}}>
                                           {props.ticketId}
                                       </Typography>

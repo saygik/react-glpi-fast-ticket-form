@@ -1,60 +1,53 @@
 import React from 'react';
-import {makeStyles, useTheme } from "@material-ui/core/styles"
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import DownIcon from '@material-ui/icons/KeyboardArrowDown';
-import clsx from 'clsx';
-import { green } from '@material-ui/core/colors';
+import Fab from '@mui/material/Fab';
+import { green } from '@mui/material/colors';
 import TicketWizard from './components/TicketWizard';
-import {faEdit, faTimes} from "@fortawesome/free-solid-svg-icons"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import {Typography} from "@material-ui/core"
-
-
-const useStyles = makeStyles((theme) => ({
-  fab: {
-    height:55,
-    position: 'absolute',
-    bottom: theme.spacing(4),
-    right: theme.spacing(4),
-  },
-  fabGreen: {
-    color: theme.palette.common.white,
-    backgroundColor: green[500],
-    '&:hover': {
-      backgroundColor: green[600],
-    },
-  },
-  fabClosed:{
-    fontSize:'1.2rem',
-    fontWeight:'600',
-    margin: theme.spacing(1) ,
-    letterSpacing: '5px'
-  }
-}));
-
-
+import { faEdit, faTimes } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Typography from "@mui/material/Typography"
 
 export default function App() {
-  const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const handleClick =() => {
-    setOpen(open=>!open)
+  const handleClick = () => {
+    setOpen(open => !open)
   }
   return (
-      <React.Fragment>
-        <TicketWizard open={open} setOpen={setOpen}/>
-        <Fab aria-label={'Add'} className={clsx(classes.fab, classes.fabGreen)} color={'primary'} onClick={handleClick} size={"large"} variant={open ? "round":"extended"}>
-          {open
-              ? <FontAwesomeIcon icon={faTimes} style={{fontSize: '2rem'}}/>
-              : <React.Fragment>
-                    <Typography component="div" className={classes.fabClosed}  >
-                      ЗАЯВКА В ИРЦ
-                    </Typography>
-                    <FontAwesomeIcon icon={faEdit} style={{fontSize: '1.75rem'}}/>
-              </React.Fragment>
-          }
-        </Fab>
-      </React.Fragment>
+    <React.Fragment>
+      <TicketWizard open={open} setOpen={setOpen} />
+      <Fab
+        aria-label={'Add'}
+        color={'primary'}
+        onClick={handleClick}
+        size={"large"}
+        variant={open ? "round" : "extended"}
+        sx={{
+          height: 55,
+          position: 'absolute',
+          bottom: '20px',
+          right: '20px',
+          color: 'common.white',
+          bgcolor: green[500],
+          '&:hover': { bgcolor: green[600] },
+        }}
+      >
+        {open
+          ? <FontAwesomeIcon icon={faTimes} style={{ fontSize: '2rem' }} />
+          : <React.Fragment>
+            <Typography
+              component="div"
+              sx={{
+                fontSize: '1.2rem',
+                fontWeight: 600,
+                margin: '10px',
+                letterSpacing: '5px'
+              }}
+            >
+              ЗАЯВКА В ИРЦ
+            </Typography>
+            <FontAwesomeIcon icon={faEdit} style={{ fontSize: '1.75rem' }} />
+          </React.Fragment>
+        }
+      </Fab>
+    </React.Fragment>
   );
 }

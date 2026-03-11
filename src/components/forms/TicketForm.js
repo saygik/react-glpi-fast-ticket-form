@@ -1,32 +1,27 @@
-import React, {useEffect} from 'react'
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Slider from '@material-ui/core/Slider';
-import Tooltip from '@material-ui/core/Tooltip';
-import Switch from '@material-ui/core/Switch';
-import {makeStyles, withStyles} from '@material-ui/core/styles'
-import { red, green } from '@material-ui/core/colors';
+import React from 'react'
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Switch from '@mui/material/Switch';
+import { styled } from '@mui/material/styles';
+import { red, green } from '@mui/material/colors';
 
 
-const AntSwitch = withStyles((theme) => ({
-
-    switchBase: {
-        color: red[500],
-        '& + $track': {
-            opacity: 1,
-            backgroundColor: red[200],
-        },
-        '&$checked': {
-            color: green[500],
-        },
-        '&$checked + $track': {
-            backgroundColor: green[500],
-        },
+const AntSwitch = styled(Switch)(() => ({
+  '& .MuiSwitch-switchBase': {
+    color: red[500],
+    '& + .MuiSwitch-track': {
+      opacity: 1,
+      backgroundColor: red[200],
     },
-    checked: {},
-    track: {},
-}))(Switch);
+    '&.Mui-checked': {
+      color: green[500],
+    },
+    '&.Mui-checked + .MuiSwitch-track': {
+      backgroundColor: green[500],
+    },
+  },
+}));
 
 
 
@@ -44,7 +39,7 @@ export default function TicketForm(props) {
         <React.Fragment>
             <Grid container spacing={2} style={{height:292}}>
                 <Grid item xs={12} style={{paddingBottom:0}}>
-                        <Grid component="label" container justify="center" spacing={0}>
+                        <Grid component="label" container justifyContent="center" spacing={0}>
                             <Grid item><Typography component="div">Инцидент</Typography></Grid>
                             <Grid item>
                                 <AntSwitch

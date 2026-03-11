@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react'
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import {Typography,Box} from '@material-ui/core';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Link from '@material-ui/core/Link';
+import React from 'react'
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 
 export default function AddressForm(props) {
@@ -19,8 +19,8 @@ export default function AddressForm(props) {
 
     return (
         <React.Fragment>
-            <Grid container spacing={3} style={{height:300}}>
-                <Grid item xs={12}>
+            <Grid container spacing={3} style={{ height: 300 }}>
+                <Grid xs={12}>
                     <TextField
                         autoFocus
                         required
@@ -35,7 +35,7 @@ export default function AddressForm(props) {
                         fullWidth
                         inputProps={{
                             style: {
-                                fontSize:16
+                                fontSize: 16
                             }
                         }}
                     />
@@ -54,11 +54,11 @@ export default function AddressForm(props) {
                     />
                 </Grid>
                 <Box m={3}>
-                <Typography variant="body2" gutterBottom >
-                    Если указанный email будет обнаружен в системе,
-                    то следующий шаг будет пропущен и заявка будет
-                    создана в организации обнаруженного пользователя.
-                </Typography>
+                    <Typography variant="body2" gutterBottom >
+                        Если указанный email будет обнаружен в системе,
+                        то следующий шаг будет пропущен и заявка будет
+                        создана в организации обнаруженного пользователя.
+                    </Typography>
 
                 </Box>
             </Grid>

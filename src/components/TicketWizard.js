@@ -1,16 +1,11 @@
     import React, {useEffect} from 'react'
-    import { makeStyles, withStyles } from '@material-ui/core/styles';
-
-    import {Typography, Box,Step, Stepper, StepLabel, Paper, Button} from '@material-ui/core';
     import AddressForm from './forms/AddressForm';
     import OrganizationForm from './forms/OrganizationForm';
     import TicketForm from './forms/TicketForm';
     import Review from './forms/ReviewForm';
     import { useFormik } from "formik";
     import * as Yup from "yup";
-    import BigLoader from "./BigLoader/BigLoader"
     import api from "../services/api"
-    import clsx from 'clsx';
     import TicketWizardUI from './TicketWizardUI'
     import { faEnvelopeOpen, faSitemap, faShareSquare } from '@fortawesome/free-solid-svg-icons'
     import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"

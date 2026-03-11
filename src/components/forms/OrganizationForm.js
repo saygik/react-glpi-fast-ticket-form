@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react'
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem'
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem'
+import CircularProgress from '@mui/material/CircularProgress';
 import api from "../../services/api"
 import {subnetsContainIp} from '../../services/utils'
-import * as net from "net"
-import {Box} from "@material-ui/core"
+import Box from "@mui/material/Box"
 const YEARS=[
     {value:'-', label:'не определено'},
     {value:'1234', label:'1'},

@@ -1,5 +1,6 @@
 import React from 'react';
 import Fab from '@mui/material/Fab';
+import Box from '@mui/material/Box';
 import { green } from '@mui/material/colors';
 import TicketWizard from './components/TicketWizard';
 import { faEdit, faTimes } from "@fortawesome/free-solid-svg-icons"
@@ -15,39 +16,48 @@ export default function App() {
     <React.Fragment>
       <TicketWizard open={open} setOpen={setOpen} />
       <Fab
-        aria-label={'Add'}
-        color={'primary'}
+        aria-label="Add"
+        color="success"
         onClick={handleClick}
-        size={"large"}
-        variant={open ? "round" : "extended"}
+        size="large"
+        variant={open ? "circular" : "extended"}
         sx={{
           height: 55,
           position: 'absolute',
           bottom: '20px',
           right: '20px',
-          color: 'common.white',
-          bgcolor: green[500],
-          '&:hover': { bgcolor: green[600] },
+          boxShadow: '0 0.5rem 1rem rgba(0,0,0,.15)', // Bootstrap shadow-lg
+          borderRadius: open ? 50 : 1, // Круглые углы как pills
+          minWidth: open ? 60 : 240,
+          fontWeight: 600,
+          letterSpacing: '0.5px',
+          textTransform: 'none', // Без UPPERCASE как в Bootstrap
+          '&:hover': {
+            boxShadow: '0 0.75rem 1.5rem rgba(0,0,0,.2)',
+            transform: 'translateY(-2px)',
+            bgcolor: 'success.dark'
+          },
+          transition: 'all 0.2s ease-in-out'
         }}
       >
-        {open
-          ? <FontAwesomeIcon icon={faTimes} style={{ fontSize: '2rem' }} />
-          : <React.Fragment>
+        {open ? (
+          <FontAwesomeIcon icon={faTimes} style={{ fontSize: '1.5rem' }} />
+        ) : (
+          <Box className="d-flex align-items-center gap-2" sx={{ px: 1.5 }}>
+            <FontAwesomeIcon icon={faEdit} style={{ fontSize: '1.25rem' }} />
             <Typography
-              component="div"
               sx={{
-                fontSize: '1.2rem',
+                fontSize: '1rem',
                 fontWeight: 600,
-                margin: '10px',
-                letterSpacing: '5px'
+                letterSpacing: '0.5px'
               }}
             >
               ЗАЯВКА В ИРЦ
             </Typography>
-            <FontAwesomeIcon icon={faEdit} style={{ fontSize: '1.75rem' }} />
-          </React.Fragment>
-        }
+          </Box>
+        )}
       </Fab>
+
     </React.Fragment>
   );
 }

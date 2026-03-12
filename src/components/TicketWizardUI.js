@@ -154,7 +154,7 @@ export default function TicketWizardUI(props) {
                         p: '20px',
                         pt: '40px',
                         position: 'relative',
-                        borderRadius: '10px',
+                        borderRadius: '0',
                         border: `1px solid ${theme.palette.divider}`,
                     })}
                 >

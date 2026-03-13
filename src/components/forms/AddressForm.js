@@ -1,10 +1,4 @@
 import React from 'react'
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
 
 
 export default function AddressForm(props) {
@@ -18,54 +12,39 @@ export default function AddressForm(props) {
     } = props;
 
     return (
-        <React.Fragment>
-            <Grid container style={{ height: 300 }}>
-                <Grid item xs={12} style={{ width: '100%' }}>
-                    <TextField
-                        autoFocus
-                        required
-                        id="email"
-                        name="email"
-                        label="Почтовый адрес"
-                        helperText={touched.email ? errors.email : ""}
-                        error={Boolean(errors.email)}
-                        value={email}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        fullWidth
-                        size="small"
-                        margin="dense"
+        <div style={{ height: 250, overflowY: 'auto', paddingRight: 4 }}>
+            <div style={{ marginTop: 20 }}>
+                <label className="form-label" htmlFor="email">Почтовый адрес</label>
+                <input
+                    autoFocus
+                    required
+                    type="email"
+                    className={`form-control ${touched.email && errors.email ? 'is-invalid' : ''}`}
+                    id="email"
+                    name="email"
+                    value={email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    placeholder=""
+                />
+                {touched.email && errors.email ? (
+                    <div className="invalid-feedback">{errors.email}</div>
+                ) : null}
+            </div>
 
-                    />
-                </Grid>
-
-                <Grid item xs={12}>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={saveMe}
-                                onChange={(event) => setFieldValue('saveMe', event.target.checked)}
-                                name="saveMe"
-                                color="primary"
-                                size="small"
-                            />
-                        }
-                        label={
-                            <Typography variant="body2" color="textSecondary">
-                                Запомнить меня на компьютере
-                            </Typography>
-                        }
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <Box mt={1}>
-                        <Typography variant="caption" color="textSecondary">
-                            Если указанный email будет обнаружен в системе, следующий шаг будет пропущен и заявка
-                            будет создана в организации обнаруженного пользователя.
-                        </Typography>
-                    </Box>
-                </Grid>
-            </Grid>
-        </React.Fragment>
+            <div style={{ marginTop: 20 }}>
+                <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id="saveMe"
+                    name="saveMe"
+                    checked={!!saveMe}
+                    onChange={(event) => setFieldValue('saveMe', event.target.checked)}
+                />
+                <label className="form-check-label" htmlFor="saveMe">
+                    Запомнить меня на компьютере
+                </label>
+            </div>
+        </div>
     );
 }

@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem'
 import CircularProgress from '@mui/material/CircularProgress';
 import api from "../../services/api"
 import { subnetsContainIp } from '../../services/utils'
-import Box from "@mui/material/Box"
 const YEARS = [
     { value: '-', label: 'не определено' },
     { value: '1234', label: '1' },
@@ -63,101 +58,93 @@ export default function OrganizationForm(props) {
             })
     }, [])
     return (
-        <React.Fragment>
+        <div style={{ height: 300, overflowY: 'auto', paddingRight: 4 }}>
+            <div className="mb-3">
+                <label className="form-label" htmlFor="org">Регион обслуживания</label>
 
-            <Grid container spacing={2} style={{ height: 300 }}>
-                <Grid item xs={12}>
-                    <Typography variant="subtitle2" color="textSecondary" gutterBottom>
-                        Организация и контакты
-                    </Typography>
-                </Grid>
-                <Grid item xs={12} md={12} style={{ width: '100%' }} >
-                    {
-                        orgs.length > 1 ?
-                            <TextField
-                                name="org"
-                                label="Регион обслуживания"
-                                select
-                                helperText={touched.org ? errors.org : ""}
-                                error={Boolean(errors.org)}
-                                SelectProps={{
-                                    MenuProps: {
-                                        disableScrollLock: true,
-                                    },
-                                }}
-                                value={orgs.length > 1 ? org : 0}
-                                onChange={props.handleChange}
-                                fullWidth
-                                size="small"
-                                margin="dense"
-                            >
-                                {orgs.map(option => (
-                                    <MenuItem key={option.id} value={option.id}>
-                                        {option.completename}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
-                            : loading
-                                ? <CircularProgress size={40} />
-                                :
-                                <Box m={3}>
-                                    <Typography variant="body2" gutterBottom >
-                                        Ошибка. Список организаций недоступен.
-                                    </Typography>
-                                </Box>
-                    }
-                </Grid>
-                <Grid item xs={12} style={{ paddingTop: 0, width: '100%' }} >
-                    <TextField
+                {loading ? (
+                    <div className="form-text">
+                        <CircularProgress size={16} /> Загружаю список…
+                    </div>
+                ) : orgs.length > 1 ? (
+                    <>
+                        <select
+                            className={`form-select ${touched.org && errors.org ? 'is-invalid' : ''}`}
+                            id="org"
+                            name="org"
+                            value={orgs.length > 1 ? org : 0}
+                            onChange={props.handleChange}
+                            onBlur={handleBlur}
+                        >
+                            {orgs.map(option => (
+                                <option key={option.id} value={option.id}>
+                                    {option.completename}
+                                </option>
+                            ))}
+                        </select>
+                        {touched.org && errors.org ? (
+                            <div className="invalid-feedback">{errors.org}</div>
+                        ) : null}
+                    </>
+                ) : (
+                    <div className="invalid-feedback" style={{ display: 'block' }}>
+                        Ошибка. Список организаций недоступен.
+                    </div>
+                )}
+            </div>
+
+            <div className="form-grid-2">
+                <div className="mb-3" style={{ marginBottom: 0 }}>
+                    <label className="form-label" htmlFor="fio">ФИО</label>
+                    <input
                         autoFocus
                         required
+                        type="text"
+                        className={`form-control ${touched.fio && errors.fio ? 'is-invalid' : ''}`}
                         id="fio"
                         name="fio"
-                        label="ФИО"
-                        helperText={touched.fio ? errors.fio : ""}
-                        error={Boolean(errors.fio)}
                         value={fio}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        fullWidth
-                        size="small"
-                        margin="dense"
                     />
-                </Grid>
+                    {touched.fio && errors.fio ? (
+                        <div className="invalid-feedback">{errors.fio}</div>
+                    ) : null}
+                </div>
 
-                <Grid item xs={12} style={{ paddingTop: 0, width: '100%' }} >
-                    <TextField
+                <div className="mb-3" style={{ marginBottom: 0 }}>
+                    <label className="form-label" htmlFor="phone">Телефон</label>
+                    <input
                         required
+                        type="text"
+                        className={`form-control ${touched.phone && errors.phone ? 'is-invalid' : ''}`}
                         id="phone"
                         name="phone"
-                        label="Телефон"
-                        helperText={touched.phone ? errors.phone : ""}
-                        error={Boolean(errors.phone)}
                         value={phone}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        fullWidth
-                        size="small"
-                        margin="dense"
                     />
-                </Grid>
-                <Grid item xs={12} style={{ paddingTop: 0, width: '100%' }} >
-                    <TextField
-                        id="address"
-                        name="address"
-                        label="Адрес"
-                        helperText={touched.address ? errors.address : ""}
-                        error={Boolean(errors.address)}
-                        value={address}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        fullWidth
-                        size="small"
-                        margin="dense"
-                    />
-                </Grid>
+                    {touched.phone && errors.phone ? (
+                        <div className="invalid-feedback">{errors.phone}</div>
+                    ) : null}
+                </div>
+            </div>
 
-            </Grid>
-        </React.Fragment>
+            <div className="mb-3">
+                <label className="form-label" htmlFor="address">Адрес</label>
+                <input
+                    type="text"
+                    className={`form-control ${touched.address && errors.address ? 'is-invalid' : ''}`}
+                    id="address"
+                    name="address"
+                    value={address}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                />
+                {touched.address && errors.address ? (
+                    <div className="invalid-feedback">{errors.address}</div>
+                ) : null}
+            </div>
+        </div>
     );
 }

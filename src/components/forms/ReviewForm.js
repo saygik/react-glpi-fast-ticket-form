@@ -8,31 +8,22 @@ export default function ReviewForm(props) {
     return (
         <React.Fragment>
 
-            <Grid container spacing={3} style={{ minHeight: 300 }}>
-                <Grid item xs={12}>
+            <div style={{ height: 250, overflowY: 'auto', paddingRight: 4 }}>
+                <div style={{ marginTop: 20 }}>
                     <Box m={3}>
                         {
                             props.ticketId > 0
                                 ? <>
-                                    <Typography variant="body2" gutterBottom >
+                                    <Typography variant="body2" gutterBottom sx={{ textAlign: 'center' }}>
                                         {`Заявка по вашему обращению была зарегистрирована
-                                            в системе support.rw.by под номером `
+                                            в системе support.rw под номером `
                                         }
                                     </Typography>
-                                    <Typography sx={{ fontWeight: 500 }} component="div" align="center"
+                                    <Typography sx={{ fontWeight: 500, textAlign: 'center' }} component="div" align="center"
                                         style={{ marginBottom: '20px', fontWeight: '600', fontSize: '4rem', letterSpacing: '5px', color: '#556cd6' }}>
                                         {props.ticketId}
                                     </Typography>
-                                    <Link
-                                        component="button"
-                                        variant="body2"
-                                        onClick={(e) => {
-                                            e.preventDefault()
-                                            window.open("https://support.rw/front/ticket.form.php?id=" + props.ticketId, '_blank').focus();
-                                        }}
-                                    >
-                                        Ссылка на заявку
-                                    </Link>
+
                                 </>
                                 : props.ticketId < 0
                                     ? <Typography variant="body2" gutterBottom >
@@ -41,8 +32,8 @@ export default function ReviewForm(props) {
                                     : ''
                         }
                     </Box>
-                </Grid>
-            </Grid>
+                </div>
+            </div>
         </React.Fragment>
     );
 }

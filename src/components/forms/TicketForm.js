@@ -1,27 +1,4 @@
 import React from 'react'
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import Switch from '@mui/material/Switch';
-import { styled } from '@mui/material/styles';
-import { red, green } from '@mui/material/colors';
-
-
-const AntSwitch = styled(Switch)(() => ({
-    '& .MuiSwitch-switchBase': {
-        color: red[500],
-        '& + .MuiSwitch-track': {
-            opacity: 1,
-            backgroundColor: red[200],
-        },
-        '&.Mui-checked': {
-            color: green[500],
-        },
-        '&.Mui-checked + .MuiSwitch-track': {
-            backgroundColor: green[500],
-        },
-    },
-}));
 
 
 
@@ -36,65 +13,43 @@ export default function TicketForm(props) {
     } = props;
 
     return (
-        <React.Fragment>
-            <Grid container spacing={2} style={{ height: 292 }}>
-                <Grid item xs={12} style={{ paddingBottom: 0 }}>
-                    <Grid component="label" container justifyContent="center" spacing={0}>
-                        <Grid item><Typography component="div">Инцидент</Typography></Grid>
-                        <Grid item>
-                            <AntSwitch
-                                size="small"
-                                checked={!!(tip - 1)}
-                                onChange={(event, value) => setFieldValue('tip', value + 1)}
-                                name="checkedC" />
-                        </Grid>
-                        <Grid item><Typography component="div">Запрос</Typography></Grid>
-                    </Grid>
+        <div style={{ height: 250, overflowY: 'auto', paddingRight: 4 }}>
 
-                </Grid>
 
-                <Grid item xs={12} style={{ paddingTop: 0, width: '100%' }} >
-                    <TextField
-                        autoFocus
-                        required
-                        id="title"
-                        name="title"
-                        label="Заголовок"
-                        helperText={touched.title ? errors.title : ""}
-                        error={Boolean(errors.title)}
-                        value={title}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        fullWidth
-                        inputProps={{
-                            style: {
-                                fontSize: 16
-                            }
-                        }}
-                    />
-                </Grid>
-                <Grid item xs={12} style={{ width: '100%' }} >
-                    <TextField
-                        required
-                        id="description"
-                        name="description"
-                        label="Описание"
-                        helperText={touched.description ? errors.description : ""}
-                        multiline
-                        rows={2}
-                        error={Boolean(errors.description)}
-                        value={description}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        fullWidth
-                        inputProps={{
-                            style: {
-                                fontSize: 16
-                            }
-                        }}
-                    />
-                </Grid>
-            </Grid>
-        </React.Fragment>
+            <div className="mb-3">
+                <label className="form-label" htmlFor="title">Заголовок</label>
+                <input
+                    autoFocus
+                    required
+                    type="text"
+                    className={`form-control ${touched.title && errors.title ? 'is-invalid' : ''}`}
+                    id="title"
+                    name="title"
+                    value={title}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                />
+                {touched.title && errors.title ? (
+                    <div className="invalid-feedback">{errors.title}</div>
+                ) : null}
+            </div>
+
+            <div className="mb-3">
+                <label className="form-label" htmlFor="description">Описание</label>
+                <textarea
+                    required
+                    className={`form-control ${touched.description && errors.description ? 'is-invalid' : ''}`}
+                    id="description"
+                    name="description"
+                    value={description}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    rows={3}
+                />
+                {touched.description && errors.description ? (
+                    <div className="invalid-feedback">{errors.description}</div>
+                ) : null}
+            </div>
+        </div>
     );
 }

@@ -13,10 +13,10 @@ export default function TicketForm(props) {
     } = props;
 
     return (
-        <div style={{ height: 250, overflowY: 'auto', paddingRight: 4 }}>
+        <div style={{ height: 270, overflowY: 'auto', paddingRight: 4 }}>
 
 
-            <div className="mb-3">
+            <div className="mb-3" style={{ padding: "0 5px" }}>
                 <label className="form-label" htmlFor="title">Заголовок</label>
                 <input
                     autoFocus
@@ -34,7 +34,7 @@ export default function TicketForm(props) {
                 ) : null}
             </div>
 
-            <div className="mb-3">
+            <div className="mb-3" style={{ padding: "0 5px" }}>
                 <label className="form-label" htmlFor="description">Описание</label>
                 <textarea
                     required

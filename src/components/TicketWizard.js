@@ -7,7 +7,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "../services/api"
 import TicketWizardUI from './TicketWizardUI'
-import { faEnvelopeOpen, faSitemap, faShareSquare, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+import { faQuestionCircle, faEnvelopeOpen, faSitemap, faShareSquare, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { ServiceRequestSvg, ProblemReportSvg } from './TypeStepSvgs'
 
@@ -37,7 +37,7 @@ function TypeStep({ setFieldValue, goToStep }) {
 
     return (
         <div style={{
-            height: 250,
+            height: 308,
             display: 'flex',
             alignItems: 'center',  // Центрирование по вертикали
             justifyContent: 'center', // Центрирование по горизонтали
@@ -210,6 +210,7 @@ const steps = [
     {
         id: 4,
         label: 'ЗАЯВКА',
+        icon: <FontAwesomeIcon icon={faCheckCircle} style={{ fontSize: '1.5rem' }} />,
         component: <Review />,
     },
 ]

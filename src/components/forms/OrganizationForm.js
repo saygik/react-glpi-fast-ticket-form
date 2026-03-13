@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import CircularProgress from '@mui/material/CircularProgress';
 import api from "../../services/api"
 import { subnetsContainIp } from '../../services/utils'
+
 const YEARS = [
     { value: '-', label: 'не определено' },
     { value: '1234', label: '1' },
     { value: '5234', label: '2' },
     { value: '9234', label: '3' },
 ]
+
 export default function OrganizationForm(props) {
     const {
         values: { org, fio, phone, address },
@@ -20,11 +21,11 @@ export default function OrganizationForm(props) {
 
     const [orgs, setOrgs] = useState([{ id: 0, completename: 'Не определена', comment: '' }])
     const [loading, setLoading] = useState(true)
+
     useEffect(() => {
         api.getOrgs()
             .then(data => {
                 let subnets = []
-                //str.substr(1, 2)
                 if (data.data.results) {
                     const orgs = data.data.results.map(org => {
                         const newOrg = org
@@ -57,14 +58,18 @@ export default function OrganizationForm(props) {
                 setLoading(false)
             })
     }, [])
+
     return (
-        <div style={{ height: 300, overflowY: 'auto', paddingRight: 4 }}>
-            <div className="mb-3">
+        <div style={{ height: 270, overflowY: 'auto', paddingRight: 4 }}>
+            <div className="mb-3" style={{ padding: "20px 5px 5px 5px" }}>
                 <label className="form-label" htmlFor="org">Регион обслуживания</label>
 
                 {loading ? (
-                    <div className="form-text">
-                        <CircularProgress size={16} /> Загружаю список…
+                    <div className="form-text d-flex align-items-center gap-2">
+                        <div className="spinner-border spinner-border-sm text-secondary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
+                        Загружаю список…
                     </div>
                 ) : orgs.length > 1 ? (
                     <>
@@ -93,57 +98,114 @@ export default function OrganizationForm(props) {
                 )}
             </div>
 
-            <div className="form-grid-2">
-                <div className="mb-3" style={{ marginBottom: 0 }}>
-                    <label className="form-label" htmlFor="fio">ФИО</label>
-                    <input
-                        autoFocus
-                        required
-                        type="text"
-                        className={`form-control ${touched.fio && errors.fio ? 'is-invalid' : ''}`}
-                        id="fio"
-                        name="fio"
-                        value={fio}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                    />
-                    {touched.fio && errors.fio ? (
-                        <div className="invalid-feedback">{errors.fio}</div>
-                    ) : null}
+            {/* Поля ФИО и Телефон с подписями в одной строке */}
+            <div style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: '10px',
+                padding: '0 5px',
+                marginBottom: '15px'
+            }}>
+                {/* ФИО */}
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px'
+                }}>
+                    <label className="form-label" htmlFor="fio" style={{
+                        minWidth: '60px',
+                        marginBottom: 0,
+                        whiteSpace: 'nowrap',
+                        lineHeight: '38px', // Выравнивание по высоте input
+                        height: '38px' // Фиксированная высота как у input
+                    }}>
+                        ФИО
+                    </label>
+                    <div style={{ flex: 1 }}>
+                        <input
+                            autoFocus
+                            required
+                            type="text"
+                            className={`form-control ${touched.fio && errors.fio ? 'is-invalid' : ''}`}
+                            id="fio"
+                            name="fio"
+                            value={fio}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            style={{ height: '38px' }} // Фиксированная высота
+                        />
+                        {touched.fio && errors.fio ? (
+                            <div className="invalid-feedback">{errors.fio}</div>
+                        ) : null}
+                    </div>
                 </div>
 
-                <div className="mb-3" style={{ marginBottom: 0 }}>
-                    <label className="form-label" htmlFor="phone">Телефон</label>
-                    <input
-                        required
-                        type="text"
-                        className={`form-control ${touched.phone && errors.phone ? 'is-invalid' : ''}`}
-                        id="phone"
-                        name="phone"
-                        value={phone}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                    />
-                    {touched.phone && errors.phone ? (
-                        <div className="invalid-feedback">{errors.phone}</div>
-                    ) : null}
+                {/* Телефон */}
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px'
+                }}>
+                    <label className="form-label" htmlFor="phone" style={{
+                        minWidth: '60px',
+                        marginBottom: 0,
+                        whiteSpace: 'nowrap',
+                        lineHeight: '38px', // Выравнивание по высоте input
+                        height: '38px' // Фиксированная высота как у input
+                    }}>
+                        Телефон
+                    </label>
+                    <div style={{ flex: 1 }}>
+                        <input
+                            required
+                            type="text"
+                            className={`form-control ${touched.phone && errors.phone ? 'is-invalid' : ''}`}
+                            id="phone"
+                            name="phone"
+                            value={phone}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            style={{ height: '38px' }} // Фиксированная высота
+                        />
+                        {touched.phone && errors.phone ? (
+                            <div className="invalid-feedback">{errors.phone}</div>
+                        ) : null}
+                    </div>
                 </div>
             </div>
 
-            <div className="mb-3">
-                <label className="form-label" htmlFor="address">Адрес</label>
-                <input
-                    type="text"
-                    className={`form-control ${touched.address && errors.address ? 'is-invalid' : ''}`}
-                    id="address"
-                    name="address"
-                    value={address}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                />
-                {touched.address && errors.address ? (
-                    <div className="invalid-feedback">{errors.address}</div>
-                ) : null}
+            {/* Адрес */}
+            <div className="mb-3" style={{ padding: "0 5px" }}>
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px'
+                }}>
+                    <label className="form-label" htmlFor="address" style={{
+                        minWidth: '60px',
+                        marginBottom: 0,
+                        whiteSpace: 'nowrap',
+                        lineHeight: '38px', // Выравнивание по высоте input
+                        height: '38px' // Фиксированная высота как у input
+                    }}>
+                        Адрес
+                    </label>
+                    <div style={{ flex: 1 }}>
+                        <input
+                            type="text"
+                            className={`form-control ${touched.address && errors.address ? 'is-invalid' : ''}`}
+                            id="address"
+                            name="address"
+                            value={address}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            style={{ height: '38px' }} // Фиксированная высота
+                        />
+                        {touched.address && errors.address ? (
+                            <div className="invalid-feedback">{errors.address}</div>
+                        ) : null}
+                    </div>
+                </div>
             </div>
         </div>
     );
